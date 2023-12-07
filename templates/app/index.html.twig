@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AppController!{% endblock %}
+
+{% block body %}
+
+<h1>Dropbox Demo</h1>
+
+    <div class="row">
+        Make sure the dropbox redirect url is set to
+        <code>{{ redirectUrl }}</code>
+        <a target="_blank" href="https://www.dropbox.com/developers/apps/info/{{ clientId }}">Dropbox App for {{ clientId }}</a>
+    </div>
+
+    <a class="btn btn-success"  href="{{ path('connect_dropbox_start') }}">Login With Dropbox</a>
+
+{% endblock %}
