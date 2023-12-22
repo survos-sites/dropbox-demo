@@ -16,7 +16,12 @@ security:
         main:
             lazy: true
             provider: app_user_provider
-            custom_authenticator: App\Security\AppAuthenticator
+#            custom_authenticator: App\Security\AppAuthenticator
+#            custom_authenticator: Survos\AuthBundle\Security\Authenticator
+            entry_point: App\Security\AppAuthenticator
+            custom_authenticators:
+                - App\Security\AppAuthenticator
+                - Survos\AuthBundle\Security\Authenticator
             logout:
                 path: app_logout
                 # where to redirect after logout

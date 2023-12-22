@@ -34,7 +34,7 @@ class DropboxController extends AbstractController
     /**
      * Link to this controller to start the "connect" process
      */
-    #[Route('/connect/dropbox', 'connect_dropbox_start')]
+    #[Route('/app/connect/dropbox', 'connect_dropbox_start')]
     public function connectAction()
     {
         // on Symfony 3.3 or lower, $clientRegistry = $this->get('knpu.oauth2.registry');
@@ -52,7 +52,7 @@ class DropboxController extends AbstractController
      * because this is the "redirect_route" you configured
      * in config/packages/knpu_oauth2_client.yaml
      */
-    #[Route(path: '/connect/dropbox/check', name: 'connect_dropbox_check')]
+    #[Route(path: '/app/connect/dropbox/check', name: 'connect_dropbox_check')]
     public function connectCheckAction(Request $request)
     {
         /** @var DropboxClient $client */

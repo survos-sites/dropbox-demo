@@ -2,6 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
+use League\Flysystem\DirectoryAttributes;
+use League\Flysystem\StorageAttributes;
 use Stevenmaguire\OAuth2\Client\Provider\Dropbox;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
@@ -9,6 +12,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use League\Flysystem\Filesystem;
+use Spatie\Dropbox\Client;
+use Spatie\FlysystemDropbox\DropboxAdapter;
 
 class AppController extends AbstractController
 {
@@ -24,6 +30,27 @@ class AppController extends AbstractController
     #[Route('/', name: 'app_homepage')]
     public function index(Request $request, UrlGeneratorInterface $urlGenerator): Response
     {
+
+
+        /** @var User $user */
+        if ($user = $this->getUser()) {
+            if ($dropbox = $user->getIdentifiers()['dropbox']??null) {
+                $authorizationToken = $dropbox['accessToken']['access_token'];
+                $client = new Client($authorizationToken);
+                $adapter = new DropboxAdapter($client);
+
+                $filesystem = new Filesystem($adapter, ['case_sensitive' => false]);
+                // https://flysystem.thephpleague.com/docs/usage/directory-listings/
+                /** @var DirectoryAttributes $content */
+                $dirs = [];
+                foreach ($filesystem->listContents('/', true)
+                             ->filter(fn (StorageAttributes $attributes) => $attributes->isDir())
+                         as $content) {
+                    $dirs[] = $content->path();
+                }
+                dd($dirs);
+            }
+        }
 
         $token = null;
         $user = null;
@@ -41,7 +68,6 @@ class AppController extends AbstractController
                 'redirectUrl' => $params['redirectUri'],
                 'clientId' => $this->client,
             ]);
-
         }
 
         if ($code = $request->get('code')) {
