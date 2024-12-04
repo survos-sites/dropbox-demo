@@ -19,4 +19,5 @@ return [
     Survos\BootstrapBundle\SurvosBootstrapBundle::class => ['all' => true],
     Survos\Bundle\MakerBundle\SurvosMakerBundle::class => ['dev' => true, 'test' => true],
     League\FlysystemBundle\FlysystemBundle::class => ['all' => true],
+    Symfony\UX\Icons\UXIconsBundle::class => ['all' => true],
 ];
