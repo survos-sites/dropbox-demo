@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "66a46ccac24807ce2debb7bde217efb1",
+    "content-hash": "f5669abc5a2741f724a173d89da5f0b7",
     "packages": [
         {
             "name": "bizkit/versioning-bundle",
@@ -12886,7 +12886,9 @@
         "php": "^8.3",
         "ext-ctype": "*",
         "ext-iconv": "*",
-        "ext-intl": "*"
+        "ext-intl": "*",
+        "ext-pdo_sqlite": "*",
+        "ext-pgsql": "*"
     },
     "platform-dev": {},
     "plugin-api-version": "2.6.0"
