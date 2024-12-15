@@ -34,6 +34,7 @@ class AppController extends AbstractController
 
         /** @var User $user */
         if ($user = $this->getUser()) {
+            dd($user->getIdentifiers());
             if ($dropbox = $user->getIdentifiers()['dropbox']??null) {
                 $authorizationToken = $dropbox['accessToken']['access_token'];
                 $client = new Client($authorizationToken);
