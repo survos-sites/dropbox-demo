@@ -6,11 +6,12 @@ use App\Entity\User;
 use League\Flysystem\DirectoryAttributes;
 use League\Flysystem\StorageAttributes;
 use Stevenmaguire\OAuth2\Client\Provider\Dropbox;
+use Symfony\Bridge\Twig\Attribute\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use League\Flysystem\Filesystem;
 use Spatie\Dropbox\Client;
@@ -28,13 +29,13 @@ class AppController extends AbstractController
     }
 
     #[Route('/', name: 'app_homepage')]
-    public function index(Request $request, UrlGeneratorInterface $urlGenerator): Response
+    #[Template('app/index.html.twig')]
+    public function index(Request $request, UrlGeneratorInterface $urlGenerator): Response|array
     {
-
+        $dirs = [];
 
         /** @var User $user */
         if ($user = $this->getUser()) {
-            dd($user->getIdentifiers());
             if ($dropbox = $user->getIdentifiers()['dropbox']??null) {
                 $authorizationToken = $dropbox['accessToken']['access_token'];
                 $client = new Client($authorizationToken);
@@ -44,14 +45,14 @@ class AppController extends AbstractController
                 // https://flysystem.thephpleague.com/docs/usage/directory-listings/
                 /** @var DirectoryAttributes $content */
                 $dirs = [];
-                foreach ($filesystem->listContents('/', true)
+                foreach ($filesystem->listContents('/', false)
                              ->filter(fn (StorageAttributes $attributes) => $attributes->isDir())
                          as $content) {
                     $dirs[] = $content->path();
                 }
-                dd($dirs);
             }
         }
+
 
         $token = null;
         $user = null;
@@ -66,6 +67,7 @@ class AppController extends AbstractController
         if (empty($state)) {
             return $this->render('app/index.html.twig', [
                 'user' => $user,
+                'dirs' => $dirs,
                 'redirectUrl' => $params['redirectUri'],
                 'clientId' => $this->client,
             ]);

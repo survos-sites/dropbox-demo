@@ -6,6 +6,17 @@
 
 <h1>Dropbox Demo</h1>
 
+    {% if is_granted('ROLE_USER') %}
+        <p>
+        You are logged in as {{ app.user }}.
+        </p>
+
+        {% for dir in dirs|default([]) %}
+            <li>{{ dir }}</li>
+        {% endfor %}
+    {% endif %}
+
+    <h3>survos auth</h3>
     <div class="row">
         Make sure the dropbox redirect url is set to
         <code>{{ redirectUrl }}</code>

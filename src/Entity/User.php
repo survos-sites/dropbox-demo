@@ -13,7 +13,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: 'users')]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
-class User implements UserInterface, PasswordAuthenticatedUserInterface,OAuthIdentifiersInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface,OAuthIdentifiersInterface,\Stringable
 {
     use OAuthIdentifiersTrait;
     #[ORM\Id]
@@ -116,5 +116,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface,OAuthIde
         $this->dropboxToken = $dropboxToken;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getEmail();
     }
 }

@@ -43,6 +43,7 @@ private ?AuthorizationCheckerInterface $authorizationChecker = null
 //        $this->add($menu, 'app_homepage');
         // for nested menus, don't add a route, just a label, then use it for the argument to addMenuItem
 
+        $this->add($menu, 'app_homepage');
         $nestedMenu = $this->addSubmenu($menu, 'Credits');
 
         foreach (['bundles', 'javascript'] as $type) {
