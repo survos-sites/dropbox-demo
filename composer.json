@@ -9,6 +9,7 @@
         "php": "^8.3",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "bizkit/versioning-bundle": "^1.2",
         "doctrine/doctrine-bundle": "^2.11",
         "doctrine/doctrine-migrations-bundle": "^3.3",
         "doctrine/orm": "^2.17",
@@ -104,7 +105,6 @@
         }
     },
     "require-dev": {
-        "bizkit/versioning-bundle": "^1.2",
         "phpunit/phpunit": "^9.5",
         "survos/deployment-bundle": "^1.5",
         "survos/maker-bundle": "^1.5",
