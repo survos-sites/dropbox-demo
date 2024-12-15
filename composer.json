@@ -104,6 +104,7 @@
         }
     },
     "require-dev": {
+        "bizkit/versioning-bundle": "^1.2",
         "phpunit/phpunit": "^9.5",
         "survos/deployment-bundle": "^1.5",
         "survos/maker-bundle": "^1.5",
