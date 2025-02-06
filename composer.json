@@ -2,7 +2,8 @@
     "name": "survos-sites/dropbox-demo",
     "description": "Dropbox API Demo: A simple demo of using the dropbox API to authenticate and fetch files",
     "type": "project",
-    "license": "proprietary",
+    "license": "MIT",
+    "keywords": ["dropbox", "demo", "api"],
     "minimum-stability": "stable",
     "prefer-stable": true,
     "require": {
@@ -15,7 +16,7 @@
         "bizkit/versioning-bundle": "^1.2",
         "doctrine/doctrine-bundle": "^2.11",
         "doctrine/doctrine-migrations-bundle": "^3.3",
-        "doctrine/orm": "^2.17",
+        "doctrine/orm": "^3.3",
         "google/apiclient": "^2.15.0",
         "knpuniversity/oauth2-client-bundle": "^2.17",
         "league/flysystem-bundle": "^3.3",
